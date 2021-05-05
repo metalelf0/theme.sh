@@ -2,3 +2,4 @@
 *.swo
 *.swn
 TODO
+.theme_cache

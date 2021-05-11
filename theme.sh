@@ -5,18 +5,28 @@
 # Licensed under the WTFPL provided this notice is preserved.
 
 # Find a broken theme? Want to add a missing one? PRs are welcome.
-if ! [ -f .theme_cache ]
+
+if [ -L $0 ] ; then
+    ME=$(readlink $0)
+else
+    ME=$0
+fi
+
+DIR=$(dirname $ME)
+THEME_CACHE="$DIR/.theme_cache"
+
+if ! [ -f $THEME_CACHE ]
 then
   echo "Building .theme_cache file, please wait..."
-  for file in themes/*
+  for file in $DIR/themes/*
   do
-    echo "$file" | sed 's/themes\///' >> .theme_cache
-    cat $file >> .theme_cache
-    echo >> .theme_cache
+    echo "$file" | sed 's/themes\///' >> $THEME_CACHE
+    cat $file >> $THEME_CACHE
+    echo >> $THEME_CACHE
   done
 fi
 
-themes="$(cat .theme_cache)"
+themes="$(cat $THEME_CACHE)"
 
 # Use truecolor sequences to simulate the end result.
 preview() {

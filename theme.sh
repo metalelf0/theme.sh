@@ -20,7 +20,7 @@ then
   echo "Building .theme_cache file, please wait..."
   for file in $DIR/themes/*
   do
-    echo "$file" | sed 's/themes\///' >> $THEME_CACHE
+    echo "$(basename $file)" >> $THEME_CACHE
     cat $file >> $THEME_CACHE
     echo >> $THEME_CACHE
   done
